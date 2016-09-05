@@ -1,0 +1,53 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}ONE DAY ONE STORY{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='logo.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='logo.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    <header class="header">
+      <ul>
+        <li class="cor-1"></li>
+        <li class="cor-2"></li>
+        <li class="cor-3"></li>
+        <li class="cor-4"></li>
+        <li class="cor-5"></li>
+      </ul>
+      </header>
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default bs-nav">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('home') }}">HOME</a></li>
+                    <li><a href='#'>ARTICLE</a></li>
+                    <li><a href="#">READ ME</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{ url_for('index') }}">SIGN UP</a></li>
+                        <li><a href="{{ url_for('index') }}">SIGN IN</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% block page_content %}{% endblock %}
+</div>
+{% endblock %}

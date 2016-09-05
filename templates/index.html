@@ -1,0 +1,22 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{ title }}ONE DAY ONE STORY</title>
+    {% else %}
+    <title>ONE DAY ONE STORY</title>
+    {% endif %}
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='welcome.css') }}">
+</head>
+<body>
+<div id="wrapper">
+  <div id="info">
+    <div id="info-content">
+      <a href="/home">
+      <h1><strong>ONE DAY ONE STORY</strong></h1></a>
+    </div>
+  </div>
+</div>
+<!-- #wrapper -->
+</body>
+</html>
