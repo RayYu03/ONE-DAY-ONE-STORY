@@ -5,16 +5,16 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'Stay away from me'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     MAIL_SERVER = 'smtp.163.com'
-    MAIL_PORT = '994'
-    MAIL_USE_TLS = False
-    MAIL_USE_SSL = True
+    MAIL_PORT = 25
+    MAIL_USE_TLS = True
+    #MAIL_USE_SSL = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or 'onedayonesto@163.com'
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'notforyou911'
     FLASKY_MAIL_SUBJECT_PREFIX = '[ONE DAY ONE STORY]'
     FLASKY_MAIL_SENDER = 'ONE-DAY-ONE-STORY Admin <onedayonesto@163.com>'
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN') or 'onedayonesto@163.com'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-    
+
     @staticmethod
     def init_app(app):
         pass
