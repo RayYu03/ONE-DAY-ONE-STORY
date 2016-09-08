@@ -6,7 +6,6 @@ from wtforms import ValidationError
 from ..models import Role, User
 
 
-
 class NameForm(Form):
     name = StringField('What is your name?', validators=[Required()])
     submit = SubmitField('Submit')
@@ -29,7 +28,6 @@ class EditProfileAdminForm(Form):
     location = StringField('Location', validators=[Length(0, 64)])
     about_me = TextAreaField('About me')
     submit = SubmitField('Submit')
-
 
     def __init__(self, user, *args, **kwargs):
         super(EditProfileAdminForm, self).__init__(*args, **kwargs)

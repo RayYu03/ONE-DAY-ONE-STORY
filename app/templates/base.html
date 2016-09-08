@@ -36,31 +36,25 @@
                     <li><a href="{{ url_for('main.home') }}">HOME</a></li>
                     <li><a href='#'>ARTICLE</a></li>
                     <li><a href="#">READ ME</a></li>
-                    {% if current_user.is_authenticated %}
-                    <li>
-                      <a href="{{ url_for('main.user', username=current_user.username) }}">
-                        Profile
-                      </a>
-                    </li>
-                    {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                   {% if current_user.is_authenticated %}
                   <li>
                     <a href="{{ url_for('main.user', username=current_user.username) }}">
-                      Profile
+                      PROFILE
                     </a>
                   </li>
                    <li class="dropdown">
-                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
+                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT <b class="caret"></b></a>
                        <ul class="dropdown-menu">
                            <li><a href="{{ url_for('auth.change_password') }}">Change Password</a></li>
                            <li><a href="{{ url_for('auth.change_email_request') }}">Change Email</a></li>
-                           <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+                           <li><a href="{{ url_for('auth.logout') }}">LOG OUT</a></li>
                        </ul>
                    </li>
                    {% else %}
-                   <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+                   <li><a href="{{ url_for('auth.login') }}">LOG IN</a></li>
+                   <li><a href="{{ url_for('auth.register') }}">SIGN UP</a></li>
                    {% endif %}
                 </ul>
             </div>
