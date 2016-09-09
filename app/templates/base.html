@@ -6,8 +6,9 @@
     {{ super() }}
     <link rel="shortcut icon" href="{{ url_for('static', filename='logo.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url_for('static', filename='logo.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home-styles.css') }}">
     <header class="header">
       <ul>
         <li class="cor-1"></li>
@@ -33,23 +34,26 @@
 
             <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('main.home') }}">HOME</a></li>
+                    <li class=""><a href="/home"><span class="glyphicon glyphicon-home"> HOME</span></a></li>
                     <li><a href='#'>ARTICLE</a></li>
                     <li><a href="#">READ ME</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                   {% if current_user.is_authenticated %}
-                  <li>
-                    <a href="{{ url_for('main.user', username=current_user.username) }}">
-                      PROFILE
-                    </a>
-                  </li>
+
                    <li class="dropdown">
-                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">ACCOUNT <b class="caret"></b></a>
+                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                          <img src="{{ current_user.gravatar(size=18) }}">
+                           {{ current_user.username }} <b class="caret"></b>
+                      </a>
                        <ul class="dropdown-menu">
+                           <li><a href="{{ url_for('main.user', username=current_user.username) }}">Profile</a></li>
+                           <li class="divider"></li>
                            <li><a href="{{ url_for('auth.change_password') }}">Change Password</a></li>
+                           <li class="divider"></li>
                            <li><a href="{{ url_for('auth.change_email_request') }}">Change Email</a></li>
-                           <li><a href="{{ url_for('auth.logout') }}">LOG OUT</a></li>
+                           <li class="divider"></li>
+                           <li><a href="{{ url_for('auth.logout') }}" >LOG OUT</a></li>
                        </ul>
                    </li>
                    {% else %}
@@ -73,4 +77,22 @@
 
     {% block page_content %}{% endblock %}
 </div>
+{% endblock %}
+{% block script %}
+    <script src="{{ url_for('static', filename='js/jquery-2.2.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/floatButton.js') }}"></script>
+    {# csrfToken for Ajax   #}
+    <script>
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken)
+                }
+            }
+        })
+    </script>
+    {{ moment.include_moment() }}
+    {{ moment.lang('zh-cn') }}
 {% endblock %}
