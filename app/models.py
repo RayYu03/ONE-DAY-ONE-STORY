@@ -6,6 +6,7 @@ from flask import current_app,request
 from . import login_manager
 from . import db
 import hashlib
+from datetime import datetime
 
 #增加角色的权限记录(default,permissions)
 class Role(db.Model):
@@ -60,6 +61,7 @@ class User(UserMixin, db.Model):
     location = db.Column(db.String(64))
     about_me = db.Column(db.Text())
     avatar_hash = db.Column(db.String(32))
+    posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     #赋予用户角色
     def __init__(self,**kwargs):
@@ -161,6 +163,13 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
+
+class Post(db.Model):
+    __tablename__ = 'posts'
+    id = db.Column(db.Integer,primary_key=True)
+    body = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime,index=True,default=datetime.utcnow)
+    author_id = db.Column(db.Integer,db.ForeignKey('users.id'))
 
 class AnonymousUser(AnonymousUserMixin):
     def can(self, permissions):
