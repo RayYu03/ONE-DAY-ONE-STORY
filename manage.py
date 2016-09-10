@@ -7,7 +7,7 @@ if os.environ.get('FLASK_COVERAGE'):
     COV.start()
 
 from app import create_app, db
-from app.models import User, Role, Post, Follow,Comment
+from app.models import User, Role, Post, Follow,Comment,Permission
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 
@@ -28,7 +28,7 @@ def test(coverage=False):
     if coverage and not os.environ.get('FLASK_COVERAGE'):
         import sys
         os.environ['FLASK_COVERAGE'] = '1'
-        os.execvp(sys.executable, [sys.executable]  sys.argv)
+        os.execvp(sys.executable, [sys.executable] + sys.argv)
     import unittest
     tests = unittest.TestLoader().discover('tests')
     unittest.TextTestRunner(verbosity=2).run(tests)
@@ -54,7 +54,7 @@ def profile(length=25, profile_dir=None):
 @manager.command
 def deploy():
     """Run deployment tasks."""
-    from flask.ext.migrate import upgrade
+    from flask_migrate import upgrade
     from app.models import Role, User
 
     # migrate database to latest revision
