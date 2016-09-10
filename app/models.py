@@ -79,6 +79,8 @@ class User(UserMixin, db.Model):
         super(User,self).__init__(**kwargs)
 
         if self.role is None:
+            #for testing
+            #if self.email == current_app.config['FLASKY_ADMIN']:
             if self.email.lower() == current_app.config['FLASKY_ADMIN'].lower():
                 self.role = Role.query.filter_by(permissions=0xff).first()
             if self.role is None:
