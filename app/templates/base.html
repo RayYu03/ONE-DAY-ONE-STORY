@@ -78,21 +78,7 @@
     {% block page_content %}{% endblock %}
 </div>
 {% endblock %}
-{% block script %}
-    <script src="{{ url_for('static', filename='js/jquery-2.2.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/floatButton.js') }}"></script>
-    {# csrfToken for Ajax   #}
-    <script>
-        var csrfToken = $('meta[name="csrf-token"]').attr('content');
-        $.ajaxSetup({
-            beforeSend: function (xhr, settings) {
-                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken)
-                }
-            }
-        })
-    </script>
-    {{ moment.include_moment() }}
-    {{ moment.lang('zh-cn') }}
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment() }}
 {% endblock %}

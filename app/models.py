@@ -10,6 +10,13 @@ from datetime import datetime
 from markdown import markdown
 import bleach
 
+class Permission:
+    FOLLOW = 0x01
+    COMMENT = 0x02
+    WRITE_ARTICLES = 0x04
+    MODERATE_COMMENTS = 0x08
+    ADMINISTER = 0x80
+
 #增加角色的权限记录(default,permissions)
 class Role(db.Model):
     __tablename__ = 'roles'
@@ -44,13 +51,6 @@ class Role(db.Model):
     def __repr__(self):
         return '<Role %r>' % self.name
 
-class Permission:
-    FOLLOW = 0x01
-    COMMENT = 0x02
-    WRITE_ARTICLES = 0x04
-    MODERATE_COMMENTS = 0x08
-    ADMINISTER = 0x80
-
 class Follow(db.Model):
     __tablename__ = 'follows'
     follower_id = db.Column(db.Integer,db.ForeignKey('users.id'),primary_key=True)
@@ -77,7 +77,7 @@ class User(UserMixin, db.Model):
         super(User,self).__init__(**kwargs)
 
         if self.role is None:
-            if self.email == current_app.config['FLASKY_ADMIN']:
+            if self.email.lower() == current_app.config['FLASKY_ADMIN'].lower():
                 self.role = Role.query.filter_by(permissions=0xff).first()
             if self.role is None:
                 self.role = Role.query.filter_by(default=True).first()
@@ -256,9 +256,9 @@ class Post(db.Model):
     __tablename__ = 'posts'
     id = db.Column(db.Integer,primary_key=True)
     body = db.Column(db.Text)
+    body_html = db.Column(db.Text)
     timestamp = db.Column(db.DateTime,index=True,default=datetime.utcnow)
     author_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-    body_html = db.Column(db.Text)
 
     @staticmethod
     def generate_fake(count=100):
