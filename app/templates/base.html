@@ -39,6 +39,10 @@
                     <li><a href="#">READ ME</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                {% if current_user.can(Permission.MODERATE_COMMENTS) %}
+                <li><a href="{{ url_for('main.moderate') }}">Moderate Comments</a></li>
+                {% endif %}
+
                   {% if current_user.is_authenticated %}
 
                    <li class="dropdown">
@@ -74,7 +78,6 @@
         {{ message }}
     </div>
     {% endfor %}
-
     {% block page_content %}{% endblock %}
 </div>
 {% endblock %}

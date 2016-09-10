@@ -19,7 +19,7 @@
         <p><a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
         {% endif %}
         {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
-        <p>{{ user.posts.count() }} blog posts.</p>
+        <p>{{ user.posts.count() }} blog posts. {{ user.comments.count() }} comments.</p>
         <p>
             {% if current_user.can(Permission.FOLLOW) and user != current_user %}
                 {% if not current_user.is_following(user) %}
